@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAdminData } from './app/features/adminSlice';
 import Posts from './Pages/Posts';
 import PostDetails from './Pages/Post-Details';
+import Applications from './Pages/Applications';
+import ApplicationDetails from './Pages/ApplicationDetails';
 
 
 function App(){
@@ -35,6 +37,8 @@ function App(){
         <Route path='/'  element={<Home/>}>
           <Route path='/posts' element={<Posts/>}/>
           <Route path='/post/:id' element={<PostDetails/>}></Route>
+          <Route path='/applications' element={<Applications/>}/>
+          <Route path='/application/:id' element={<ApplicationDetails/>}/>
         </Route>
       </Route>
     )
