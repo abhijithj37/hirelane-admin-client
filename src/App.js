@@ -1,5 +1,4 @@
- import './App.css';
-  import {
+   import {
     createBrowserRouter,
     Route,
     RouterProvider,
@@ -12,7 +11,8 @@ import { useEffect } from 'react';
 import axios from './utils/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAdminData } from './app/features/adminSlice';
-
+import Posts from './Pages/Posts';
+import PostDetails from './Pages/Post-Details';
 
 
 function App(){
@@ -32,7 +32,10 @@ function App(){
   createRoutesFromElements(
       <Route>
         <Route path='/login' element={admin?<Navigate to={'/'}/>:<Login/>}/>
-        <Route path='/'  element={<Home/>}/>
+        <Route path='/'  element={<Home/>}>
+          <Route path='/posts' element={<Posts/>}/>
+          <Route path='/post/:id' element={<PostDetails/>}></Route>
+        </Route>
       </Route>
     )
   )

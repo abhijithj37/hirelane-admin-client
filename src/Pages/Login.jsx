@@ -19,6 +19,7 @@ function Login(){
           e.preventDefault()
     if((formData.userName.trim())===""||(formData.password.trim())===""){
     return setErrorMessage('Please fill all the fields')
+    
     }else{
         setErrorMessage('')
     }
@@ -27,7 +28,7 @@ function Login(){
         dispatch(setAdminData(data))
         navigate('/')
     }).catch((err)=>{
-       console.log(err);
+       console.log(err.message)
     })
 
  }
