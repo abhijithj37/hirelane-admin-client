@@ -43,9 +43,7 @@ function JobSeekers() {
     }}
   >
     <Toolbar />
-    {/* *****************************InterviewModal******************************************* */}
-
-    {/***********************************************************************InterviewModal*******************************************************************************/}
+    
 
     <Container>
       <Grid container rowGap={3} paddingTop={4} border={0}>
@@ -133,20 +131,7 @@ function JobSeekers() {
                   </Table>
                 </TableContainer>
               </TabPanel>
-              <TabPanel value="2">
-                {/* <Box marginTop={2}>
-                <Typography
-                  fontWeight={600}
-                  sx={{ opacity: 0.7 }}
-                  variant="h6"
-                >
-                  Last 14 Days
-                </Typography>
-                <Divider sx={{ marginTop: 1 }} />
-              </Box> */}
-                Saved
-              </TabPanel>
-              <TabPanel value="3">Interviews</TabPanel>
+              
             </TabContext>
           </Box>
         </Grid>

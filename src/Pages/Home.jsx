@@ -128,16 +128,7 @@ function Home(){
             )}         
           </Typography>
         </Box>
-          {/* <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>        
-          </IconButton>           
-          <IconButton onClick={()=>navigate('employerChat')} color="inherit">
-            <Badge badgeContent={2} color="secondary">
-              <MessageIcon />
-            </Badge>       
-          </IconButton>          */}
+           
         </Toolbar>         
       </AppBar>          
 

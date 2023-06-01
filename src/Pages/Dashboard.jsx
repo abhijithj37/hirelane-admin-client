@@ -154,7 +154,7 @@ import { useGetApplications, useGetApplicationsByMonth, useGetEmployers, useGetP
                           <TableCell>
                             
                         <Box  alignItems={'center'} alignContent={'center'} display={'flex'}>
-                            <Avatar /> 
+                            <Avatar src={`http://localhost:4001/image/${e.image}`}/>
                             <Box> 
                             <Typography variant='body2' marginLeft={1}>{e.fName+" "+e.lName}</Typography>
                              </Box>

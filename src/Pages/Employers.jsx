@@ -25,7 +25,7 @@ function Employers() {
         employerId:id
     }
   axios.put('/verify-employer',data,{withCredentials:true}).then(({data})=>{
-      window.alert('Employer satatus updated')
+      window.alert('Employer status updated')
       setUpdated(!updated)
 
  
@@ -45,10 +45,8 @@ function Employers() {
     }}
   >
     <Toolbar />
-    {/* *****************************InterviewModal******************************************* */}
-
-    {/***********************************************************************InterviewModal*******************************************************************************/}
-
+ 
+ 
     <Container>
       <Grid container rowGap={3} paddingTop={4} border={0}>
         <Grid item width={"100%"}>
@@ -67,8 +65,7 @@ function Employers() {
                   aria-label="lab API tabs example"
                 >
                   <Tab label="" value="1" />
-                  {/* <Tab label="Interviews" value="3" /> */}
-                </TabList>
+                 </TabList>
               </Box>
 
               <TabPanel value="1">
@@ -118,9 +115,7 @@ function Employers() {
                           <TableCell align="left">
                           {element.companyName}
                           </TableCell>
-                          {/* <TableCell align="left">
-                             {element.createdAt}
-                          </TableCell> */}
+                         
                           <TableCell align="left">
                          {element.blocked?<Button onClick={()=>handleUpdateStatus(false,element._id)} variant='contained' size='small'  color='error'>
                              Unblock
@@ -136,20 +131,7 @@ function Employers() {
                   </Table>
                 </TableContainer>
               </TabPanel>
-              <TabPanel value="2">
-                {/* <Box marginTop={2}>
-                <Typography
-                  fontWeight={600}
-                  sx={{ opacity: 0.7 }}
-                  variant="h6"
-                >
-                  Last 14 Days
-                </Typography>
-                <Divider sx={{ marginTop: 1 }} />
-              </Box> */}
-                Saved
-              </TabPanel>
-              <TabPanel value="3">Interviews</TabPanel>
+              
             </TabContext>
           </Box>
         </Grid>
