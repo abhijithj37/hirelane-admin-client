@@ -15,33 +15,20 @@ import {
   Paper,
   Button
 } from "@mui/material";
-import axios from "../utils/axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import {   useSelector } from "react-redux";
+ import { useGetPosts } from "../utils/api";
 
 function Posts() {
-  const navigate=useNavigate()
-    const [posts, setPosts] = useState([]);
+ const navigate=useNavigate()
+ const {posts}=useSelector((state)=>state.admin) 
  
-  useEffect(() => {
-    axios
-      .get("/job-posts", { withCredentials: true })
-      .then(({ data }) => {
-        console.log(data, "posts");
-        setPosts(data);
-      })
-      .catch((err) =>{
-        console.log(err.message);
-      });
-  }, []);
-
-  
-
+ useGetPosts()
   
   
      
 
-    
   return (
     <Box
       component="main"
@@ -89,7 +76,7 @@ function Posts() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {posts.map((element, index) => (
+                        {posts?.map((element, index) => (
                           <TableRow
                             key={element._id}
                             sx={{
@@ -118,7 +105,7 @@ function Posts() {
                                <Typography color={'gray'}>{element.employerId}</Typography>
                             </TableCell>
                             <TableCell align="left">
-                                <Box borderRadius={2} display={'flex'} justifyContent={'center'} textAlign={'center'} bgcolor={element.status=="Approved"?'#00e676':'#e53935'}>
+                                <Box borderRadius={2} display={'flex'} justifyContent={'center'} textAlign={'center'} bgcolor={element.status==="Approved"?'#00e676':'#e53935'}>
                                 <Typography   color={'white'} variant="caption">
                                 {element.status}
                                </Typography> 

@@ -1,20 +1,25 @@
 import { Typography,Box,Divider,Grid,Container,Toolbar,Button } from '@mui/material'
 import axios from '../utils/axios'
 import { ApartmentRounded,Work as WorkIcon,LocalAtm as LocalAtmIcon,Timeline as TimelineIcon } from '@mui/icons-material'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPost } from '../app/features/adminSlice'
+
+
 
 function PostDetails(){
-    
+    const navigate=useNavigate()
     const {id}=useParams()
-    const [post,setPost]=useState(null)
+    const dispatch=useDispatch()
+    const {post}=useSelector((state)=>state.admin)
     useEffect(()=>{
   axios.get(`post/${id}`,{withCredentials:true}).then(({data})=>{
-    setPost(data)
+      dispatch(setPost(data))
   }).catch((err)=>{
      console.log(err.message)
   })
-    },[])
+    },[id,dispatch])
 
  const handleUpdateStatus=(status)=>{
     const data={
@@ -22,8 +27,11 @@ status,
 postId:id
     }
     axios.put('/verify-post',data,{withCredentials:true}).then(({data})=>{
-        console.log(data,'updaedd one');
-    setPost(data)
+        
+          dispatch(setPost(data))
+          window.alert(`post ${status}`)
+          navigate('/posts')
+
     }).catch((err)=>{
     console.log(err.message)
     })

@@ -1,5 +1,5 @@
 import axios from "../utils/axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Container,
@@ -11,23 +11,27 @@ import {
 
   
 } from "@mui/material";
-import { useDispatch,useSelector} from "react-redux";
- 
+import { useDispatch, useSelector } from "react-redux";
+import { setApplication } from "../app/features/adminSlice";
+  
 function ApplicationDetails() {
     
-
+  const navigate=useNavigate()
+  const dispatch=useDispatch()
   const { id } = useParams();
-  const [application, setApplication] = useState(null);
+  const{application}=useSelector((state)=>state.admin)
+
   useEffect(() => {
+
     axios
       .get(`/application-details/${id}`, { withCredentials: true })
       .then(({ data }) => {
-        setApplication(data);
+     dispatch(setApplication(data))
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+      .catch((err)=>{
+      console.log(err.message)
+      })
+    },[dispatch,id])
 
   const handleUpdateStatus=(status)=>{
     const data={
@@ -35,8 +39,9 @@ status,
 applicationId:id
     }
     axios.put('/verify-application',data,{withCredentials:true}).then(({data})=>{
-        setApplication(data)
+         dispatch(setApplication(data))
         window.alert(`Application ${status}`)
+        navigate('/applications')
     }).catch((err)=>{
         console.log(err.message)
     })

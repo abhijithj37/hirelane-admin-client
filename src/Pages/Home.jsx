@@ -1,5 +1,4 @@
-import { Button } from '@mui/material'
-import React from 'react'
+ import React, { useEffect } from 'react'
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -10,14 +9,10 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
- import MenuIcon from "@mui/icons-material/Menu";
+  import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MessageIcon from "@mui/icons-material/Message";
-import {useSelector} from "react-redux";
-import BusinessIcon from "@mui/icons-material/Business";
-import { Outlet, useNavigate } from "react-router-dom";
+ import {useSelector} from "react-redux";
+ import { Outlet, useNavigate } from "react-router-dom";
 import Logo from '../images/logo.png'
 import { MainListItems } from '../Components/ListItems';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -76,6 +71,13 @@ function Home(){
     const toggleDrawer = () => {
       setOpen(!open);
     };
+
+    useEffect(()=>{
+   if(!admin){
+  navigate('/login')
+  
+   }
+    },[admin,navigate])
     
   return (
     <ThemeProvider theme={mdTheme}>

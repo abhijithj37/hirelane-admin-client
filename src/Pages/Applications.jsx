@@ -15,34 +15,18 @@ import {
   Paper,
   Button
 } from "@mui/material";
-import axios from "../utils/axios";
-import React, { useEffect, useState } from "react";
+ import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useGetApplications } from "../utils/api";
 
 function Applications(){
-
+ 
   const navigate=useNavigate()
-    const [applications, setApplications]=useState([]);
-     
-  useEffect(() => {
-    axios
-      .get("/get-applications", {withCredentials:true})
-      .then(({ data })=>{
-        console.log(data, "applications");
-        setApplications(data);
-      })
-      .catch((err) =>{
-        console.log(err.message);
-      });
-  }, []);
+  const {applications}=useSelector((state)=>state.admin) 
 
-  
+   useGetApplications()
 
-  
-  
-     
-
-    
   return (
     <Box
       component="main"
@@ -125,7 +109,7 @@ function Applications(){
                                <Typography color={'gray'}>{element.createdAt}</Typography>
                             </TableCell>
                             <TableCell align="left">
-                                <Box borderRadius={2} display={'flex'} justifyContent={'center'} textAlign={'center'} bgcolor={element.verificationStatus=="Approved"?'#00e676':'#e53935'}>
+                                <Box borderRadius={2} display={'flex'} justifyContent={'center'} textAlign={'center'} bgcolor={element.verificationStatus==="Approved"?'#00e676':'#e53935'}>
                                 <Typography   color={'white'} variant="caption">
                                 {element.verificationStatus}
                                </Typography>

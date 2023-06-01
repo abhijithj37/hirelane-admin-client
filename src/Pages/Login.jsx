@@ -28,7 +28,7 @@ function Login(){
         dispatch(setAdminData(data))
         navigate('/')
     }).catch((err)=>{
-       console.log(err.message)
+       setErrorMessage(err.response.data  )
     })
 
  }

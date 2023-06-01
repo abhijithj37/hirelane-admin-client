@@ -15,8 +15,6 @@ import { useGetApplications, useGetApplicationsByMonth, useGetEmployers, useGetP
  useGetPosts()
  useGetApplications()
  
- 
-
  const verifiedApplications=applications?.filter((app)=>app.verificationStatus!=="Not-verified")
  const verifiedPosts=posts?.filter((p)=>p.status!=="Not-verified")
   const pieChartData = [
