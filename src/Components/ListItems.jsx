@@ -2,17 +2,21 @@ import React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-  import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from '@mui/icons-material/Logout';
 import axios from '../utils/axios'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {setAdminData} from '../app/features/adminSlice';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
- import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsIcon from '@mui/icons-material/Groups';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import NoteIcon from '@mui/icons-material/Note';function MainListItems(){
+import NoteIcon from '@mui/icons-material/Note';
+import { useConnectUser } from '../utils/api';
+
+
+function MainListItems(){
 const navigate=useNavigate()
-const dispatch=useDispatch()
+  const dispatch=useDispatch()
 const handleLogout=()=>{ 
  const confirmed=window.confirm('Are You Sure want to log out')
   if(confirmed){
@@ -25,6 +29,9 @@ const handleLogout=()=>{
   }
  
 }
+
+useConnectUser()
+
   return(
     <>
     <ListItemButton onClick={()=>{navigate('.')}}>
@@ -52,7 +59,7 @@ const handleLogout=()=>{
       <ListItemText primary="Users"/>
     </ListItemButton>
     <ListItemButton onClick={()=>navigate('applications')}>
-      <ListItemIcon >
+      <ListItemIcon>
       <NoteIcon/>
       </ListItemIcon>
       <ListItemText primary="Applications"></ListItemText>

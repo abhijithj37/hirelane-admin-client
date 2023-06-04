@@ -18,11 +18,13 @@ import ApplicationDetails from './Pages/ApplicationDetails';
 import Employers from './Pages/Employers';
 import JobSeekers from './Pages/JobSeekers';
 import Dashboard from './Pages/Dashboard';
- 
+import { SocketProvider } from './Context/SocketProvider';
+  
 
 function App(){
   const dispatch=useDispatch()
   const {admin}=useSelector((state)=>state.admin)
+   
 
 
   useEffect(()=>{
@@ -57,7 +59,9 @@ function App(){
   
   return(
     <div className="App">
+      <SocketProvider> 
     <RouterProvider router={router}/>
+    </SocketProvider>
     </div>
   )
 

@@ -5,10 +5,13 @@ import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPost } from '../app/features/adminSlice'
+import { handleSendNotification } from '../utils/api'
+import { useSocket } from '../Context/SocketProvider'
 
 
 
 function PostDetails(){
+  const socket=useSocket()
     const navigate=useNavigate()
     const {id}=useParams()
     const dispatch=useDispatch()
@@ -26,9 +29,20 @@ function PostDetails(){
 status,
 postId:id
     }
+
+
+    const notification = {
+      from: "Hirelane",
+      to: post?.employerId,
+      content: `Your Job post  for ${post?.jobTitle} posted on ${new Date(post.createdAt).toLocaleDateString('en-us',{day:'numeric',month:"long",year:"numeric"})} was ${status}`,
+      createdAt: new Date(),
+    };
+
+
     axios.put('/verify-post',data,{withCredentials:true}).then(({data})=>{
         
           dispatch(setPost(data))
+          handleSendNotification(notification,socket)
           window.alert(`post ${status}`)
           navigate('/posts')
 

@@ -67,7 +67,6 @@ function Posts() {
                       <TableHead>
                         <TableRow>
                           <TableCell>Job title</TableCell>
-
                           <TableCell align="left">CompanyName</TableCell>
                           <TableCell align="left">Posted on</TableCell>
                           <TableCell align="left">Employer Id</TableCell>
@@ -99,7 +98,7 @@ function Posts() {
                               {element.companyName}
                             </TableCell>
                             <TableCell align="left">
-                              {element.createdAt}
+                              {new Date(element.createdAt).toLocaleDateString('en-us',{day:'numeric',month:'long',year:'numeric'})}
                             </TableCell>
                             <TableCell align="left"> 
                                <Typography color={'gray'}>{element.employerId}</Typography>

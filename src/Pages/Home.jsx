@@ -16,7 +16,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Logo from '../images/logo.png'
 import { MainListItems } from '../Components/ListItems';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-  
+   
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar,{
@@ -65,7 +65,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 function Home(){
-    const {admin}=useSelector((state)=>state.admin)
+     const {admin}=useSelector((state)=>state.admin)
     const [open, setOpen] = React.useState(true);
     const navigate=useNavigate()
     const toggleDrawer = () => {
@@ -78,6 +78,8 @@ function Home(){
   
    }
     },[admin,navigate])
+
+     
     
   return (
     <ThemeProvider theme={mdTheme}>

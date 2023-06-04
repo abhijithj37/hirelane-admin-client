@@ -8,48 +8,68 @@ import {
   Button,
   Avatar,
   Toolbar,
-
-  
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setApplication } from "../app/features/adminSlice";
-  
+import { handleSendNotification } from "../utils/api";
+import { useSocket } from "../Context/SocketProvider";
+
 function ApplicationDetails() {
-    
-  const navigate=useNavigate()
-  const dispatch=useDispatch()
+  const socket = useSocket();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const{application}=useSelector((state)=>state.admin)
+  const { application } = useSelector((state) => state.admin);
 
   useEffect(() => {
-
     axios
       .get(`/application-details/${id}`, { withCredentials: true })
       .then(({ data }) => {
-     dispatch(setApplication(data))
+        dispatch(setApplication(data));
       })
-      .catch((err)=>{
-      console.log(err.message)
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [dispatch, id]);
+
+  const handleUpdateStatus = (status) => {
+    const userNotification = {
+      from: "Hirelane",
+      to: application?.candidateId,
+      content: `Your Job Application for ${application?.jobTitle} was ${status}`,
+      createdAt: new Date(),
+    };
+    const employerNotification = {
+      from: "Hirelane",
+      to: application?.employerId,
+      content: `${
+        application?.fName + " " + application?.lName
+      } applied for the position ${application?.jobTitle} posted on ${new Date(
+        application?.jobPostDate
+      ).toLocaleDateString("en-us", { day: "numeric", month:'long',year:'numeric'})} `,
+      createdAt: new Date(),
+    };
+    const data = {
+      status,
+      applicationId: id,
+    };
+    axios
+      .put("/verify-application", data, { withCredentials: true })
+      .then(({ data }) => {
+        dispatch(setApplication(data));
+        window.alert(`Application ${status}`);
+        handleSendNotification(userNotification, socket);
+        if (status === "Approved") {
+          handleSendNotification(employerNotification, socket);
+        }
+        navigate("/applications");
       })
-    },[dispatch,id])
-
-  const handleUpdateStatus=(status)=>{
-    const data={
-status,
-applicationId:id
-    }
-    axios.put('/verify-application',data,{withCredentials:true}).then(({data})=>{
-         dispatch(setApplication(data))
-        window.alert(`Application ${status}`)
-        navigate('/applications')
-    }).catch((err)=>{
-        console.log(err.message)
-    })
-  }
-
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   return (
-    
     <Box
       component="main"
       sx={{
@@ -60,9 +80,8 @@ applicationId:id
       }}
     >
       <Toolbar />
-      
 
-      <Container sx={{paddingTop:2}}>
+      <Container sx={{ paddingTop: 2 }}>
         <Box
           border={1}
           borderRadius={2}
@@ -86,7 +105,11 @@ applicationId:id
                 </Typography>
 
                 <Typography variant="body2" color={"gray"}>
-                  Applied on {application?.createdAt}
+                  Applied on{" "}
+                  {new Date(application?.createdAt).toLocaleDateString(
+                    "en-us",
+                    { day: "numeric", month: "short", year: "numeric" }
+                  )}
                 </Typography>
               </Box>
             </Box>
@@ -100,33 +123,32 @@ applicationId:id
               >
                 View CV
               </Button>
-              
-               
             </Box>
           </Box>
-          <Box width={'15%'}>
-      {application?.verificationStatus!=='Approved'  &&  <Button
+          <Box width={"15%"}>
+            {application?.verificationStatus !== "Approved" && (
+              <Button
                 size="small"
                 sx={{ borderRadius: 3 }}
                 variant="contained"
                 color="success"
-                onClick={()=>handleUpdateStatus('Approved')}
+                onClick={() => handleUpdateStatus("Approved")}
               >
                 Approve
-              </Button>}
-            {application?.verificationStatus!=='Rejected'&&  <Button
-                
-            
+              </Button>
+            )}
+            {application?.verificationStatus !== "Rejected" && (
+              <Button
                 size="small"
-                sx={{ borderRadius:3,marginLeft:1}}
+                sx={{ borderRadius: 3, marginLeft: 1 }}
                 variant="contained"
                 color="error"
-                onClick={()=>handleUpdateStatus('Rejected')}
-
+                onClick={() => handleUpdateStatus("Rejected")}
               >
                 Reject
-              </Button>}
-        </Box>
+              </Button>
+            )}
+          </Box>
         </Box>
         {/* ********************************************** */}
 

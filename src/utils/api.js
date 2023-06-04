@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "./axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setApplications,
   setEmployers,
   setPosts,
   setUsers,
 } from "../app/features/adminSlice";
-
+import { useSocket } from "../Context/SocketProvider";
+ 
 export const useGetEmployers = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -101,3 +102,25 @@ export const useGetPostsByMonth = () => {
 
   return {lineChartData}
 };
+
+export const useConnectUser=()=>{
+  const socket=useSocket()
+  const {admin}=useSelector((state)=>state.admin)
+  useEffect(()=>{
+    if(admin){
+      socket?.emit("connect-user",admin?._id)
+    }
+   },[admin?._id,admin,socket])
+  
+}
+
+  
+export const handleSendNotification=(data,socket)=>{
+ axios.post('/send-notification',data,{withCredentials:true}).then(({data})=>{
+  socket?.emit('send-notification',data)
+}).catch((err)=>{
+console.log(err.message)
+})
+
+}
+

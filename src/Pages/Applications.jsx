@@ -106,7 +106,7 @@ function Applications(){
                                <Typography color={'gray'}>{element.companyName}</Typography>
                             </TableCell>
                             <TableCell align="left"> 
-                               <Typography color={'gray'}>{element.createdAt}</Typography>
+                               <Typography color={'gray'}>{new Date(element.createdAt).toLocaleDateString('en-us',{day:'numeric',month:'short',year:'numeric'})}</Typography>
                             </TableCell>
                             <TableCell align="left">
                                 <Box borderRadius={2} display={'flex'} justifyContent={'center'} textAlign={'center'} bgcolor={element.verificationStatus==="Approved"?'#00e676':'#e53935'}>
