@@ -53,8 +53,8 @@ function Applications(){
                 <Box sx={{ borderBottom:1, borderColor:"black" }}>
 
                   <TabList aria-label="lab API tabs example">
-                  <Tab label="Applications" value="1" />
-                  </TabList>
+                  <Tab label="Applications" value="1"/>
+                  </TabList>   
 
                 </Box>
 
