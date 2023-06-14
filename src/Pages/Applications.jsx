@@ -37,7 +37,7 @@ function Applications(){
         overflow: "auto",
       }}
     >
-      <Toolbar />
+      <Toolbar/>
 
       <Container>
         <Grid container rowGap={3} paddingTop={4} border={0}>
